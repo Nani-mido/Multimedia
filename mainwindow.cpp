@@ -1,11 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <iostream>
-#include <showhistogram.h>
-using namespace cv;
-using namespace std;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,7 +13,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
+/*
 void MainWindow::on_pushButton_clicked()
 {
     fileName = QFileDialog::getOpenFileName(this,tr("Open Image"), "/home/belarbi", tr("Image Files (*.png *.jpeg *.jpg *.bmp)"));
@@ -35,7 +30,7 @@ void MainWindow::on_pushButton_2_clicked()
     imshow( "Display window", image );                   // Show our image inside it.
     waitKey(0);
 }
-
+*/
 void MainWindow::on_pushButton_3_clicked()
 {
     Mat img;
@@ -103,4 +98,23 @@ void MainWindow::on_pushButton_3_clicked()
         }
 
 
+}
+
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    fileName = QFileDialog::getOpenFileName(this,tr("Open Image"), "/home/belarbi", tr("Image Files (*.png *.jpeg *.jpg *.bmp)"));
+    QPixmap image(fileName);
+    ui->label->setPixmap(image);
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    Mat img;
+    img = imread(fileName.toStdString(), CV_LOAD_IMAGE_COLOR);
+    namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
+    imshow( "Display window", img );                   // Show our image inside it.
+    waitKey(0);
+    //////////////////////////
 }
